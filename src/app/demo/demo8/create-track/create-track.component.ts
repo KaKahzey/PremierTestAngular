@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { TrackService } from 'src/app/shared/services/track.service';
 
 @Component({
@@ -10,7 +11,9 @@ import { TrackService } from 'src/app/shared/services/track.service';
 export class CreateTrackComponent {
     trackForm : FormGroup;
 
-    constructor(private _fb : FormBuilder, private _trackService : TrackService) {
+    constructor(private _fb : FormBuilder, 
+              private _trackService : TrackService, 
+              private _router : Router) {
       this.trackForm = this._fb.group({
         title : [null],
         duration : [0],
@@ -35,5 +38,7 @@ export class CreateTrackComponent {
     addTrack() : void {
       //normalement on vérif si tout valide mais là osef
       this._trackService.create(this.trackForm.value);
+      //Après ajout dans la liste
+      this._router.navigateByUrl('/demo/demo8');
     }
 }
