@@ -9,6 +9,7 @@ import { Demo6Component } from './demo6/demo6.component';
 import { Demo8Component } from './demo8/demo8.component';
 import { CreateTrackComponent } from './demo8/create-track/create-track.component';
 import { DetailTrackComponent } from './demo8/detail-track/detail-track.component';
+import { UpdateTrackComponent } from './demo8/update-track/update-track.component';
 
 const routes: Routes = [
   //Liste de tous les liens enfants de Demo
@@ -20,7 +21,8 @@ const routes: Routes = [
   { path : "demo6" , component : Demo6Component },
   { path : "demo8", component : Demo8Component },
   { path : "demo8/create" , component : CreateTrackComponent },
-  { path : "demo8/detail/:id", component : DetailTrackComponent }
+  { path : "demo8/detail/:id", component : DetailTrackComponent },
+  { path : "demo8/update/:id", component : UpdateTrackComponent }
 ];
 
 @NgModule({
