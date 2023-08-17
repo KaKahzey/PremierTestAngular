@@ -1,1 +1,31 @@
-<p>demo8 works!</p>
+<h2>Ma playlist :</h2>
+<div class="chapter">
+    <button class="btn" href="">Ajouter un son</button>
+
+    <table>
+        <thead>
+            <tr>
+                <td>Titre</td>
+                <td>Artistes</td>
+                <td>Durée</td>
+                <td>Actions</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let track of trackList">
+                <td>{{ track.title }}</td>
+                <td>
+                    <span *ngFor="let artist of track.artists">
+                        {{artist}}
+                    </span>
+                </td>
+                <td>{{ track.duration | convertTime }}</td>
+                <td>
+                    <button class="btn">🔎</button>
+                    <button class="btn">📝</button>
+                    <button class="btn">❌</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
