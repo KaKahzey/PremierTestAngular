@@ -14,23 +14,34 @@ export class TrackService {
   constructor() { }
 
   getAll() : Track[] {
-    return []
+    return this._tracks;
   }
 
-  getById(id : number) : Track {
-    return {} as Track
+  getById(id : number) : Track | undefined {
+    return this._tracks.find(track => track.id === id);
   }
 
   create(track : Track) : void {
-
+    // this._tracks.map(track => track.id) => transforme le tableau de track en un tableau d'id [1, 2, 4, 6]
+    // ...tableau -> ... : Spread operator => destructure le tableau (ici [1, 2, 4, 6] deviendrait 1, 2, 4, 6)
+    track.id = Math.max(...this._tracks.map(track => track.id)) + 1;
+    this._tracks.push(track);
   }
 
   update(id : number, track : Track) : void {
-
+    let trackToUpdate : Track | undefined = this._tracks.find(track => track.id === id);
+    //Si track trouvée : modif
+    if(trackToUpdate) {
+      trackToUpdate.title = track.title;
+      trackToUpdate.duration = track.duration;
+      trackToUpdate.genre = track.genre;
+      trackToUpdate.cover = track.cover;
+      trackToUpdate.artists = track.artists;
+    }
   }
 
   delete(id : number) : void {
-    
+    this._tracks = this._tracks.filter(track => track.id !== id);
   }
 
 }
