@@ -23,7 +23,7 @@
                 <td>
                     <button class="btn" routerLink="/demo/demo8/detail/{{track.id}}">🔎</button>
                     <button class="btn" routerLink="/demo/demo8/update/{{track.id}}">📝</button>
-                    <button class="btn">❌</button>
+                    <button (click)="delete(track.id)" class="btn">❌</button>
                 </td>
             </tr>
         </tbody>

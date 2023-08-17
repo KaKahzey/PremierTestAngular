@@ -14,5 +14,10 @@ export class Demo8Component {
     this.trackList = this._trackService.getAll();
   }
 
+  delete(id : number) {
+    this._trackService.delete(id);
+    this.trackList = this._trackService.getAll();
+  }
+
 
 }
