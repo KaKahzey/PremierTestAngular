@@ -6,6 +6,7 @@ import { ConvertTimePipe } from './pipes/convert-time.pipe';
 import { HighlightDirective } from './directives/highlight.directive';
 import { TrainerCardComponent } from './components/trainer-card/trainer-card.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NotfoundComponent } from './components/notfound/notfound.component';
 
 
 
@@ -15,7 +16,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ConvertTempPipe,
     ConvertTimePipe,
     HighlightDirective,
-    TrainerCardComponent
+    TrainerCardComponent,
+    NotfoundComponent
   ],
   imports: [
     CommonModule,

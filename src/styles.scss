@@ -48,7 +48,7 @@
 
     }
 
-    input[type="text"], input[type="password"], input[type="email"], input[type="date"], select {
+    input[type="text"], input[type="password"], input[type="email"], input[type="date"], input[type="number"], textarea, select {
         @apply rounded-md p-2 m-1
     }
     input[type="radio"], input[type="checkbox"] {
