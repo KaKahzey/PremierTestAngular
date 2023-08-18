@@ -13,4 +13,9 @@ export class Exo5Component {
   constructor(private _fanService : FanService) {   
     this.listFan = this._fanService.getAll();
   }
+
+  delete(id : number) {
+    this._fanService.delete(id);
+    this.listFan = this._fanService.getAll();
+  }
 }

@@ -5,6 +5,8 @@ import { Exo2Component } from './exo2/exo2.component';
 import { Exo3Component } from './exo3/exo3.component';
 import { Exo5Component } from './exo5/exo5.component';
 import { CreateFanComponent } from './exo5/create-fan/create-fan.component';
+import { DetailsFanComponent } from './exo5/details-fan/details-fan.component';
+import { UpdateFanComponent } from './exo5/update-fan/update-fan.component';
 
 const routes: Routes = [
   { path : "exo1", component : Exo1Component },
@@ -12,7 +14,9 @@ const routes: Routes = [
   { path : "exo3", component : Exo3Component },
   { path : "exo4" , redirectTo : "/"},
   { path : "exo5" , component : Exo5Component },
-  { path : "exo5/create" , component : CreateFanComponent }
+  { path : "exo5/create" , component : CreateFanComponent },
+  { path : "exo5/details/:id", component : DetailsFanComponent },
+  { path : "exo5/update/:id", component : UpdateFanComponent}
 ];
 
 @NgModule({

@@ -7,7 +7,7 @@ import { Fan } from '../models/fan';
 export class FanService {
 
   private _fanList : Fan[] = [
-    { id : 1, name : 'Ben', birthdate : new Date(1990,5,18), series : ['Daredevil', 'How I Met', 'Flash'] },
+    { id : 1, name : 'Ben', birthdate : new Date(1990,11,18), series : ['Daredevil', 'How I Met', 'Flash'] },
     { id : 2, name : 'Julien', birthdate : new Date(2000,8,11), series : ['Big Bang Theory', 'Dark', 'Plus belle la vie'] }
   ];
 

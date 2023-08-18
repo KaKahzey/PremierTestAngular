@@ -1,10 +1,10 @@
-<h2>Ajouter un fan</h2>
+<h2>Modifier un fan</h2>
 <div class="chapter">
     <div>
         <a routerLink="/exo/exo5">Retour à la liste</a>
     </div>
 
-    <form [formGroup]="fanForm" (ngSubmit)="addFan()">
+    <form [formGroup]="fanForm" (ngSubmit)="updateFan()">
         <div>
             <input type="text" placeholder="Nom" formControlName="name">
             <span *ngIf="fanForm.get('name')?.touched && fanForm.get('name')?.errors?.['required']" class="text-red-600 text-sm">Champs Requis</span>
@@ -30,8 +30,8 @@
         </div>
 
         <div>
-            <!-- <button class="btn" type="submit">Ajouter</button> -->
-            <input class="btn" type="submit" value="Ajouter">
+            <!-- <button class="btn" type="submit">Modifier</button> -->
+            <input class="btn" type="submit" value="Modifier">
         </div>
     </form>
 </div>

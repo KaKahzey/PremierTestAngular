@@ -14,9 +14,9 @@
             <tr *ngFor="let fan of listFan">
                 <td>{{fan.name}}</td>
                 <td>
-                    <button class="btn">🔎 Détails</button>
-                    <button class="btn">📝 Modifier</button>
-                    <button class="btn">❌ Supprimer</button>
+                    <button class="btn" routerLink="/exo/exo5/details/{{fan.id}}">🔎 Détails</button>
+                    <button class="btn" routerLink="/exo/exo5/update/{{fan.id}}">📝 Modifier</button>
+                    <button class="btn" (click)="delete(fan.id)">❌ Supprimer</button>
                 </td>
             </tr>
         </tbody>
