@@ -21,7 +21,9 @@ export class NavbarComponent {
      { title : 'Les Exos', url : '/exo', isVisible : false, children : [
       { title : 'Exo 1 : Le Timer', url : '/exo/exo1'},
       { title : 'Exo 2 : La Shopping List V1', url : '/exo/exo2'},
-      { title : 'Exo 3 : La shopping List V2', url : '/exo/exo3'}
+      { title : 'Exo 3 : La shopping List V2', url : '/exo/exo3'},
+      { title : 'Exo 4 : Le formulaire', url : '/exo/exo4'},
+      { title : 'Exo 5 : Le gestionnaire de fans', url : '/exo/exo5'}
      ]}
    ];
 
