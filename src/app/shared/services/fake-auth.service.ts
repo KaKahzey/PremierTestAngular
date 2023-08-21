@@ -21,6 +21,10 @@ export class FakeAuthService {
     if(userByMail) {
       // Si les mdp concordent
       if(userByMail.password === password) {
+        //Stockage des infos du user dans le localStorage
+        localStorage.setItem('userId', userByMail.id.toString() )
+        //JSON.stringify(obj) -> Si vous voulez transformer tout un objet en chaine
+
         return userByMail;
       }
       else {
@@ -33,6 +37,7 @@ export class FakeAuthService {
 
   logout() : undefined {
     //On nettoie le storage pour enlever le token
+    localStorage.clear();
     //On met à jour notre Observable mais on sait pas encore cékoi un Observable
     return undefined;
   }
