@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { User } from 'src/app/shared/models/user';
 import { FakeAuthService } from 'src/app/shared/services/fake-auth.service';
 
@@ -13,6 +14,9 @@ export class Demo5Component implements OnInit, OnDestroy {
     password : string = '';
     errorMsg : string = '';
 
+    //Permettra de stocker un abonnement
+    userSub : Subscription = new Subscription();
+
     //Injection de notre service
     constructor(private _fauthService : FakeAuthService) {
 
@@ -20,7 +24,7 @@ export class Demo5Component implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         console.log("INIT DEMO5");
-        this._fauthService.$connectedUser.subscribe({
+        this.userSub = this._fauthService.$connectedUser.subscribe({
           next : (value) => {
             this.connectedUser = value;
             console.log("NEXT IN DEMO : ", value);
@@ -30,7 +34,7 @@ export class Demo5Component implements OnInit, OnDestroy {
     }
     ngOnDestroy(): void {
       console.log("DESTROY DEMO5");
-        
+      this.userSub.unsubscribe();  
     }
 
     connect() : void {

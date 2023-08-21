@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +13,29 @@ export class FakeAuthService {
   ];
 
   //----- AJOUT SYSTEME OBSERVABLES
-  // Avec le Subject
+  // Avec le Subject :
   // Par convention, on met $ devant ou derrière, pour indiquer que cette propriété est un Observable
-  $connectedUser : Subject< User | undefined > = new Subject< User | undefined >();
+  // private _$connectedUser : Subject< User | undefined > = new Subject< User | undefined >();
+  //Transforme notre Subject en simple Observable : 
+  //C'est lui qu'on va laisser public, comme ça, nos composants ne peuvent que s'abonner dessus et pas déclencher le .next()
+  // $connectedUser : Observable< User | undefined> = this._$connectedUser.asObservable();
+
+  //Avec le BehaviorSubject :
+  //Même principe que le Subject mais le Behavior a une valeur par défaut quand on s'abonne dessus et le next se déclenche dès l'abonnement
+  private _$connectedUser : BehaviorSubject< User | undefined> = new BehaviorSubject< User | undefined>(this.getUser());
+  
+  $connectedUser : Observable< User | undefined> = this._$connectedUser.asObservable();
 
   //-------------------------------
 
   constructor() { }
+
+  getUser() : User | undefined {
+    //On va récupérer l'id de l'utilisateur dans le localStorage
+    let id : string | null = localStorage.getItem('userId');
+    //Si y'en a un, on renvoie le User sinon undefined
+    return this._users.find(user => user.id === ((id)? +id : 0))   
+  }
 
   //#region Login Avant Observable
   // login(email : string, password : string) : User | undefined {
@@ -58,15 +74,15 @@ export class FakeAuthService {
         //JSON.stringify(obj) -> Si vous voulez transformer tout un objet en chaine
 
         // Indiquer que notre Observable a changé de valeur
-        this.$connectedUser.next(userByMail);
+        this._$connectedUser.next(userByMail);
         
       }
       else {
-        this.$connectedUser.next(undefined);
+        this._$connectedUser.next(undefined);
       }
     }
     else {
-      this.$connectedUser.next(userByMail); //userByMail est undefined puisqu'on est dans le cas où le user n'est pas trouvé
+      this._$connectedUser.next(userByMail); //userByMail est undefined puisqu'on est dans le cas où le user n'est pas trouvé
     }
   }
 
@@ -84,6 +100,6 @@ export class FakeAuthService {
     //On nettoie le storage pour enlever le token
     localStorage.clear();
     //On met à jour l'Observable pour envoyer undefined (plus de user)
-    this.$connectedUser.next(undefined);
+    this._$connectedUser.next(undefined);
   }
 }
