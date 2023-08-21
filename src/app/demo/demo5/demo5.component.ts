@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { User } from 'src/app/shared/models/user';
 import { FakeAuthService } from 'src/app/shared/services/fake-auth.service';
 
@@ -7,7 +7,7 @@ import { FakeAuthService } from 'src/app/shared/services/fake-auth.service';
   templateUrl: './demo5.component.html',
   styleUrls: ['./demo5.component.scss']
 })
-export class Demo5Component {
+export class Demo5Component implements OnInit, OnDestroy {
     connectedUser : User | undefined;
     email : string = '';
     password : string = '';
@@ -18,8 +18,28 @@ export class Demo5Component {
 
     }
 
+    ngOnInit(): void {
+        console.log("INIT DEMO5");
+        this._fauthService.$connectedUser.subscribe({
+          next : (value) => {
+            this.connectedUser = value;
+            console.log("NEXT IN DEMO : ", value);
+          }
+        })
+        
+    }
+    ngOnDestroy(): void {
+      console.log("DESTROY DEMO5");
+        
+    }
+
     connect() : void {
-        this.connectedUser = this._fauthService.login(this.email, this.password);
+        // Avant Obs
+        // this.connectedUser = this._fauthService.login(this.email, this.password);
+        // Après
+        this._fauthService.login(this.email, this.password);
+
+
         if(this.connectedUser) {
           this.email = '';
           this.password = '';
@@ -30,6 +50,10 @@ export class Demo5Component {
     }
 
     disconnect() : void {
-        this.connectedUser = this._fauthService.logout();
+      // Avant Obs
+        // this.connectedUser = this._fauthService.logout();
+
+      // Après Obs :
+      this._fauthService.logout();
     }
 }

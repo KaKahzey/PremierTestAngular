@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Link } from '../../models/link';
+import { User } from '../../models/user';
+import { FakeAuthService } from '../../services/fake-auth.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit, OnDestroy {
   links : Link[] = [
      { title : 'Accueil', url : '/'},
      { title : 'Les Demos', url : '/demo', isVisible : false, children : [
@@ -27,6 +29,46 @@ export class NavbarComponent {
      ]}
    ];
 
+   connectedUser : User | undefined;
+
+   constructor(private _fakeAuthService : FakeAuthService) {
+
+   }
+
+   ngOnInit(): void {
+       //Méthode qui se déclenche quand le composant apparait
+       console.log("INIT NAVBAR");
+
+       // On s'abonne à notre Observable
+       this._fakeAuthService.$connectedUser.subscribe({
+        next : (value) => {
+          //Quand l'Observable change de valeur
+          this.connectedUser = value;
+          console.log("NEXT IN NAVBAR : ", value);
+          
+        },
+        error : (err) => {
+          //Quand l'Observable rencontre une erreur
+          //On l'utilisera surtout pour les Observables de requête API
+        },
+        complete : () => {
+          //A la fin de vie de l'Observable
+          //Pour les observables qu'on fait nous même -> Il ne sera quasi jamais appelé puisqu'on veut que notre Observable existe tout le temps de la navigation sur le site
+          //Pour les oservables de requête -> La fin de vie, c'est la fin de la requête
+        }
+       });
+
+       // Si juste fonction anonyme -> d'office le next
+       //this._fakeAuthService.$connectedUser.subscribe( () => {}); 
+       
+   }
+
+   ngOnDestroy(): void {
+       //Méthode qui se déclenche quand le composant disparait
+       console.log("DESTROY NAVBAR");
+       
+   }
+
   //  display(link : Link) : void {
   //     link.isVisible = !link.isVisible;
   //     this.links.forEach(l => {
@@ -42,5 +84,12 @@ export class NavbarComponent {
       this.links[i].isVisible = false;
     }
     link.isVisible = !wasVisible;
+  }
+
+  logout() : void {
+    //Avant Obs
+    // this.connectedUser = this._fakeAuthService.logout();
+    //Après Obs
+    this._fakeAuthService.logout();
   }
 }
