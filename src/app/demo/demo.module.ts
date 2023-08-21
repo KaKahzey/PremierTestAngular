@@ -16,6 +16,8 @@ import { Demo8Component } from './demo8/demo8.component';
 import { CreateTrackComponent } from './demo8/create-track/create-track.component';
 import { DetailTrackComponent } from './demo8/detail-track/detail-track.component';
 import { UpdateTrackComponent } from './demo8/update-track/update-track.component';
+import { Demo9Component } from './demo9/demo9.component';
+import { HttpClientModule } from '@angular/common/http'
 
 
 @NgModule({
@@ -32,12 +34,14 @@ import { UpdateTrackComponent } from './demo8/update-track/update-track.componen
     CreateTrackComponent,
     DetailTrackComponent,
     UpdateTrackComponent,
+    Demo9Component,
   ],
   imports: [
     CommonModule,
     DemoRoutingModule,
     // FormsModule, //Pour pouvoir utiliser ngModel
-    SharedModule, //Importe tout ce qu'il y a dans le module partagé
+    SharedModule, //Importe tout ce qu'il y a dans le module partagé,
+    HttpClientModule
   ],
   bootstrap : [DemoComponent]
 })
