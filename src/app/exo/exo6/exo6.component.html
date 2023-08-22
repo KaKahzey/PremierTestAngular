@@ -1,0 +1,42 @@
+<body>
+    <main>
+        <div class="content">
+            <div class="pokedex">
+                <div class="dot"></div>
+                <div class="second-dot"></div>
+                <div class="mini-dot"></div>
+                <div class="pokedex-inside">
+                    <div class="pkm-left">
+                        <div id="name" class="name normal">
+                            <p id="pkm-name"></p>
+                        </div>
+                        <div class="img">
+                            <img id="pkm-img-none" src="" alt="gif sacha and pikachu" style="display: none;">
+                            <img id="pkm-img-front" src="" alt="" style="">
+                            <img id="pkm-img-back" src="" alt="" style="">
+                        </div>
+                        <div id="description" class="description"></div>
+                        <div id="infos" class="infos normal">
+                            <p>N° <span id="pkm-id"></span></p>
+                            <p>Poids : <span id="pkm-weight"></span> kg</p>
+                            <p>Taille : <span id="pkm-height"></span> cm </p>
+                        </div>
+                    </div>
+                    <div id="pkm-right" class="pkm-right">
+                        <div id="pokemons" class="pkm-list" style=""></div>
+
+                        <div class="buttons">
+                            <button id="btn-prev" style="">
+                                ⬆
+                            </button>
+                            <button id="btn-next" style="">
+                                ⬇
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+<button class="btn" (click)="bite()">envoyer</button>
