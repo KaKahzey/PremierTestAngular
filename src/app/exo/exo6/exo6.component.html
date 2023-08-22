@@ -8,28 +8,30 @@
                 <div class="pokedex-inside">
                     <div class="pkm-left">
                         <div id="name" class="name normal">
-                            <p id="pkm-name"></p>
+                            <p id="pkm-name">{{pokemonActuel.name}}</p>
                         </div>
                         <div class="img">
                             <img id="pkm-img-none" src="" alt="gif sacha and pikachu" style="display: none;">
-                            <img id="pkm-img-front" src="" alt="" style="">
-                            <img id="pkm-img-back" src="" alt="" style="">
+                            <img id="pkm-img-front" [src]="pokemonActuel.sprites.front_default" alt="" style="">
+                            <img id="pkm-img-back" [src]="pokemonActuel.sprites.back_default" alt="" style="">
                         </div>
                         <div id="description" class="description"></div>
                         <div id="infos" class="infos normal">
-                            <p>N° <span id="pkm-id"></span></p>
-                            <p>Poids : <span id="pkm-weight"></span> kg</p>
-                            <p>Taille : <span id="pkm-height"></span> cm </p>
+                            <p>N° <span id="pkm-id">{{pokemonActuel.id}}</span></p>
+                            <p>Poids : <span id="pkm-weight">{{pokemonActuel.weight / 10}}</span> kg</p>
+                            <p>Taille : <span id="pkm-height">{{pokemonActuel.height * 10}}</span> cm </p>
                         </div>
                     </div>
                     <div id="pkm-right" class="pkm-right">
                         <div id="pokemons" class="pkm-list" style=""></div>
-
+                        <ul class="pkm-list">
+                            <li class="pkm-select" *ngFor="let p of list"><a (click)="changePokemon(p.id)">{{p.name}}</a></li>
+                        </ul>
                         <div class="buttons">
-                            <button id="btn-prev" style="">
+                            <button id="btn-prev" style="" (click)="displayBefore()" [disabled]="offsetValue === 0">
                                 ⬆
                             </button>
-                            <button id="btn-next" style="">
+                            <button id="btn-next" style="" (click)="displayAfter()" [disabled]="offsetValue >= 1281">
                                 ⬇
                             </button>
                         </div>
@@ -39,4 +41,3 @@
         </div>
     </main>
 </body>
-<button class="btn" (click)="bite()">envoyer</button>

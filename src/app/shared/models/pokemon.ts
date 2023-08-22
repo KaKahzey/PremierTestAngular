@@ -3,5 +3,6 @@ export interface Pokemon {
     name : string
     weight : number
     height : number
-    sprites : string[]
+    types : Object[]
+    sprites : {front_default : string, back_default : string}
 }
