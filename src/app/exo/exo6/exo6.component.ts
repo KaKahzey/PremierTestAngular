@@ -12,16 +12,16 @@ import { PokemonType } from 'src/app/shared/models/pokemonType';
 export class Exo6Component {
 
   pokeList : any[] =  []
-  pokemonActuel : Pokemon = {
-    id : 0, name : "", weight : 0, height : 0, types : [{slot : 0,
-    type : {name : "", url : ""}}], sprites : {front_default : "", back_default : ""}
-  }
+  // pokemonActuel : Pokemon = {
+  //   id : 0, name : "Sacha and Pikachu", weight : 0, height : 0, types : [{slot : 0,
+  //   type : {name : "", url : ""}}], sprites : {front_default : "", back_default : ""}, description : {flavor_text_entries : [{flavor_text : ""}]}
+  // }
+  pokemonActuel! : Pokemon
+  descriptionActuelle : {flavor_text_entries : [{flavor_text : string}]} = {flavor_text_entries : [{flavor_text : ""}]}
   list : Pokemon[] = []
-  dataAPIFr :  [] = []
   nomsFrancais : Object[] = [{name : {fr : ""}}]
   offsetValue : number = 0
   type : string = "normal"
-  doubleBars : string = "--"
   displayGif : string = "block"
   displayImages : string = "none"
 
@@ -31,25 +31,19 @@ export class Exo6Component {
   ngOnInit(): void {
 
     this._pokeapiService.getAll().subscribe(data => {
-      this.pokeList = data.results;
-      let obs : Observable<Pokemon>[] = [];
-      this.pokeList.forEach(elem => obs.push(this._pokeapiService.getDetails(elem.url)) );
+      this.pokeList = data.results
+      let obs : Observable<Pokemon>[] = []
+      this.pokeList.forEach(elem => obs.push(this._pokeapiService.getDetails(elem.url)) )
       forkJoin(obs).subscribe({
         next : (value) => {
-          this.list = value;
+          this.list = value
         },
         complete : () => {
-          console.log(this.list); 
+          console.log(this.list)
         }
       })
-    });
-    this._pokeapiService.getFr().subscribe(data => {
-      console.log(data);
       
-    
-    })
-    console.log(this.dataAPIFr);
-    
+    });    
     }
 
   changePokemon(id : number) : void {
@@ -57,53 +51,32 @@ export class Exo6Component {
       this.displayGif = "none"
       this.displayImages = "block"
     }
-    let listTemp = this.list.filter(element => element.id == id)
-    let pokemonTemp = listTemp[0]
-    this.pokemonActuel = {id : pokemonTemp.id, name : pokemonTemp.name, weight : pokemonTemp.weight, height : pokemonTemp.height, types : pokemonTemp.types, sprites : pokemonTemp.sprites}
+    let pokemonTemp = this.list.find(element => element.id == id)
+    this.pokemonActuel = pokemonTemp ?? this.pokemonActuel
     this.type = ""
     this.type += `${this.pokemonActuel.types[0].type.name}`
-    // this.pokemonActuel.types.forEach(element => {
-    //   this.type += `--${element.type.name} `
-    // });
+    console.log(this.pokemonActuel);
+    
   }
 
-  displayBefore() : void {
-    this._pokeapiService.url = `https://pokeapi.co/api/v2/pokemon/?offset=${this.offsetValue - 20}&limit=20`
+  display(value : number) : void {
+    this._pokeapiService.url = `https://pokeapi.co/api/v2/pokemon/?offset=${this.offsetValue + value}&limit=20`
     this._pokeapiService.getAll().subscribe(data => {
-      this.pokeList = data.results;
-      let obs : Observable<Pokemon>[] = [];
-      this.pokeList.forEach(elem => obs.push(this._pokeapiService.getDetails(elem.url)) );
+      this.pokeList = data.results
+      let obs : Observable<Pokemon>[] = []
+      this.pokeList.forEach(elem => obs.push(this._pokeapiService.getDetails(elem.url)) )
       forkJoin(obs).subscribe({
         next : (value) => {
-          this.list = value;
+          this.list = value
         },
         complete : () => {
-          console.log(this.list);
+          console.log(this.list)
           
         }
       })
     })
     this.offsetValue -= 20
     
-  }
-
-  displayAfter() : void {
-    this._pokeapiService.url = `https://pokeapi.co/api/v2/pokemon/?offset=${this.offsetValue + 20}&limit=20`
-    this._pokeapiService.getAll().subscribe(data => {
-      this.pokeList = data.results;
-      let obs : Observable<Pokemon>[] = [];
-      this.pokeList.forEach(elem => obs.push(this._pokeapiService.getDetails(elem.url)) );
-      forkJoin(obs).subscribe({
-        next : (value) => {
-          this.list = value;
-        },
-        complete : () => {
-          console.log(this.list);
-          
-        }
-      })
-  })
-  this.offsetValue += 20
   }
 }
 
