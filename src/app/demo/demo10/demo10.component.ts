@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Track } from 'src/app/shared/models/track';
 import { TrackAPIService } from 'src/app/shared/services/track-api.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-demo10',
@@ -10,16 +11,21 @@ import { TrackAPIService } from 'src/app/shared/services/track-api.service';
 export class Demo10Component implements OnInit {
   trackList : Track[] = [];
 
-  constructor(private _trackApiServ : TrackAPIService) {
+  constructor(private _trackApiServ : TrackAPIService, private _activeRoute : ActivatedRoute) {
     
   }
 
   ngOnInit(): void {
-      this._trackApiServ.getAll().subscribe({
-        next : ( value ) => {
-          this.trackList = value;
-        }
-      })
+      //Après Resolver : On va chercher les tracks dans les data de la route
+      this.trackList = this._activeRoute.snapshot.data['tracks'];
+
+      // Avant resolver :
+      // this._trackApiServ.getAll().subscribe({
+      //   next : ( value ) => {
+      //     this.trackList = value;
+      //   }
+      // })
+
   }
 
   delete(id : number) {
